@@ -10,6 +10,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+
         // Создание хранилища товаров
         HashMap<Integer, String> productItem = new HashMap<>();
         int min = 10000;
