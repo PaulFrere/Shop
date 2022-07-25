@@ -1,46 +1,30 @@
 package ru.zsa;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Random;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
+
     public static void main(String[] args) {
 
-        // Создание хранилища товаров
-        HashMap<Integer, String> productItem = new HashMap<>();
-        int min = 10000;
-        int max = 99999;
-        int diff = max - min;
-        String product = "Product";
-        Random random = new Random();
-        int i = 0;
-        while(i < 1000){
-            int k = random.nextInt(diff + 1);
-            int l = random.nextInt(1000);
-            productItem.put(k,product+l);
-            i++;
-        }
-        System.out.println(productItem);
+        Map itemStorage = ItemStorage.getInstance();
 
-        //Поиск продукта по штрих-коду
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            String nKey =bufferedReader.readLine();
-            int key = Integer.parseInt(nKey);
-            String productName = productItem.get(key);
-            System.out.println(productName);
-        } catch (IOException e) {
-            System.out.println("Неверный штрихкод");
-        }
+        List<Item> itemList = new ArrayList(Arrays.asList(
+                new Item("Kettle", 1000),
+                new Item("Microwave", 4000),
+                new Item("Multicooker", 6000),
+                new Item("Battery", 100)
+        ));
 
-        //Сортровка по наименованию
-        productItem.entrySet().stream()
-                .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))
-                .forEach(k -> System.out.println(k.getKey() + ": " + k.getValue()));
+
+        ItemStorage.addItems(itemList);
+
+        System.out.println(itemList);
+
+        System.out.println("\n\n" + ItemStorage.getItem(2));
     }
+
 }
